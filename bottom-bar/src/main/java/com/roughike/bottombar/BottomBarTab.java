@@ -52,6 +52,7 @@ public class BottomBarTab extends LinearLayout {
     private float activeAlpha;
     private int inActiveColor;
     private int activeColor;
+    private boolean activeByDrawable;
     private int barColorWhenSelected;
     private int badgeBackgroundColor;
 
@@ -83,6 +84,7 @@ public class BottomBarTab extends LinearLayout {
         setActiveAlpha(config.activeTabAlpha);
         setInActiveColor(config.inActiveTabColor);
         setActiveColor(config.activeTabColor);
+        setActiveByDrawable(config.activeByDrawable);
         setBarColorWhenSelected(config.barColorWhenSelected);
         setBadgeBackgroundColor(config.badgeBackgroundColor);
         setTitleTextAppearance(config.titleTextAppearance);
@@ -236,6 +238,14 @@ public class BottomBarTab extends LinearLayout {
         }
     }
 
+    void setActiveByDrawable(boolean activeByDrawable) {
+        this.activeByDrawable = activeByDrawable;
+
+        if (isActive) {
+            setColors(activeColor);
+        }
+    }
+
     int getBarColorWhenSelected() {
         return barColorWhenSelected;
     }
@@ -347,7 +357,6 @@ public class BottomBarTab extends LinearLayout {
 
     void select(boolean animate) {
         isActive = true;
-
         if (animate) {
             setTopPaddingAnimated(iconView.getPaddingTop(), sixDps);
             animateIcon(activeAlpha);
@@ -407,8 +416,12 @@ public class BottomBarTab extends LinearLayout {
 
     private void setColors(int color) {
         if (iconView != null) {
-            iconView.setColorFilter(color);
-            iconView.setTag(color);
+            if(activeByDrawable){
+                iconView.setSelected(isActive);
+            }else {
+                iconView.setColorFilter(color);
+                iconView.setTag(color);
+            }
         }
 
         if (titleView != null) {
@@ -560,6 +573,7 @@ public class BottomBarTab extends LinearLayout {
         private final float activeTabAlpha;
         private final int inActiveTabColor;
         private final int activeTabColor;
+        private final boolean activeByDrawable;
         private final int barColorWhenSelected;
         private final int badgeBackgroundColor;
         private final int titleTextAppearance;
@@ -570,6 +584,7 @@ public class BottomBarTab extends LinearLayout {
             this.activeTabAlpha = builder.activeTabAlpha;
             this.inActiveTabColor = builder.inActiveTabColor;
             this.activeTabColor = builder.activeTabColor;
+            this.activeByDrawable = builder.activeByDrawable;
             this.barColorWhenSelected = builder.barColorWhenSelected;
             this.badgeBackgroundColor = builder.badgeBackgroundColor;
             this.titleTextAppearance = builder.titleTextAppearance;
@@ -581,6 +596,7 @@ public class BottomBarTab extends LinearLayout {
             private float activeTabAlpha;
             private int inActiveTabColor;
             private int activeTabColor;
+            private boolean activeByDrawable;
             private int barColorWhenSelected;
             private int badgeBackgroundColor;
             private int titleTextAppearance;
@@ -603,6 +619,11 @@ public class BottomBarTab extends LinearLayout {
 
             public Builder activeTabColor(@ColorInt int color) {
                 this.activeTabColor = color;
+                return this;
+            }
+
+            public Builder activeByDrawable(boolean activeByDrawable) {
+                this.activeByDrawable = activeByDrawable;
                 return this;
             }
 

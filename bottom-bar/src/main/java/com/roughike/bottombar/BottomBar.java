@@ -73,6 +73,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
     private float activeTabAlpha;
     private int inActiveTabColor;
     private int activeTabColor;
+    private boolean activeByDrawable;
     private int badgeBackgroundColor;
     private int titleTextAppearance;
     private Typeface titleTypeFace;
@@ -140,6 +141,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
 
             inActiveTabColor = ta.getColor(R.styleable.BottomBar_bb_inActiveTabColor, defaultInActiveColor);
             activeTabColor = ta.getColor(R.styleable.BottomBar_bb_activeTabColor, defaultActiveColor);
+            activeByDrawable = ta.getBoolean(R.styleable.BottomBar_bb_activeByDrawable, false);
             badgeBackgroundColor = ta.getColor(R.styleable.BottomBar_bb_badgeBackgroundColor, Color.RED);
             titleTextAppearance = ta.getResourceId(R.styleable.BottomBar_bb_titleTextAppearance, 0);
             titleTypeFace = getTypeFaceFromAsset(ta.getString(R.styleable.BottomBar_bb_titleTypeFace));
@@ -245,6 +247,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
                 .activeTabAlpha(activeTabAlpha)
                 .inActiveTabColor(inActiveTabColor)
                 .activeTabColor(activeTabColor)
+                .activeByDrawable(activeByDrawable)
                 .barColorWhenSelected(defaultBackgroundColor)
                 .badgeBackgroundColor(badgeBackgroundColor)
                 .titleTextAppearance(titleTextAppearance)
@@ -852,5 +855,11 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
         if (from != null) {
             from.setHidden(this, visible);
         }
+    }
+
+    public void setTitleByPosition(int position, String title) {
+        View bottomBarTab = tabContainer.getChildAt(position);
+        TextView titleView = (TextView) bottomBarTab.findViewById(R.id.bb_bottom_bar_title);
+        titleView.setText(title);
     }
 }
