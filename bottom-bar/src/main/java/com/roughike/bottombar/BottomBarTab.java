@@ -357,17 +357,17 @@ public class BottomBarTab extends LinearLayout {
 
     void select(boolean animate) {
         isActive = true;
-        if (animate) {
-            setTopPaddingAnimated(iconView.getPaddingTop(), sixDps);
-            animateIcon(activeAlpha);
-            animateTitle(ACTIVE_TITLE_SCALE, activeAlpha);
-            animateColors(inActiveColor, activeColor);
-        } else {
-            setTitleScale(ACTIVE_TITLE_SCALE);
-            setTopPadding(sixDps);
+//        if (animate) {
+//            setTopPaddingAnimated(iconView.getPaddingTop(), sixDps);
+//            animateIcon(activeAlpha);
+//            animateTitle(ACTIVE_TITLE_SCALE, activeAlpha);
+//            animateColors(inActiveColor, activeColor);
+//        } else {
+//            setTitleScale(ACTIVE_TITLE_SCALE);
+//            setTopPadding(sixDps);
             setColors(activeColor);
             setAlphas(activeAlpha);
-        }
+//        }
 
         if (badge != null) {
             badge.hide();
@@ -382,17 +382,17 @@ public class BottomBarTab extends LinearLayout {
         float scale = isShifting ? 0 : INACTIVE_FIXED_TITLE_SCALE;
         int iconPaddingTop = isShifting ? sixteenDps : eightDps;
 
-        if (animate) {
-            setTopPaddingAnimated(iconView.getPaddingTop(), iconPaddingTop);
-            animateTitle(scale, inActiveAlpha);
-            animateIcon(inActiveAlpha);
-            animateColors(activeColor, inActiveColor);
-        } else {
-            setTitleScale(scale);
-            setTopPadding(iconPaddingTop);
+//        if (animate) {
+//            setTopPaddingAnimated(iconView.getPaddingTop(), iconPaddingTop);
+//            animateTitle(scale, inActiveAlpha);
+//            animateIcon(inActiveAlpha);
+//            animateColors(activeColor, inActiveColor);
+//        } else {
+//            setTitleScale(scale);
+//            setTopPadding(iconPaddingTop);
             setColors(inActiveColor);
             setAlphas(inActiveAlpha);
-        }
+//        }
 
         if (!isShifting && badge != null) {
             badge.show();
